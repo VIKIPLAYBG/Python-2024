@@ -1,51 +1,49 @@
 import pygame
 import random
+from constants import *
 from player import Player
-from platform import Platform
+from platforms import Platform
 
-# Инициализация на Pygame
 pygame.init()
 
-# Константи
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-BACKGROUND_COLOR = (135, 206, 235)
-
-# Екран
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("2D Platformer Game")
 
-# Създаване на играч
 player = Player()
 
-# Спрайт групи
 all_sprites = pygame.sprite.Group()
 platforms = pygame.sprite.Group()
 
-# Генериране на платформи
+# Generating the BLACK starting platform
+str_platform = Platform(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2, "start")
+platforms.add(str_platform)
+all_sprites.add(str_platform)
+
+
+# Generating the GREEN regular platforms
 for i in range(5):
-    p = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "normal")
-    platforms.add(p)
-    all_sprites.add(p)
+    reg_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "normal")
+    platforms.add(reg_platform)
+    all_sprites.add(reg_platform)
 
-# Генериране на пружинни платформи
+# Generating the YELLOW spring platforms
 for i in range(2):
-    p = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "spring")
-    platforms.add(p)
-    all_sprites.add(p)
+    spr_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "spring")
+    platforms.add(spr_platform)
+    all_sprites.add(spr_platform)
 
-# Генериране на плъзгащи се платформи
+# Generating the BLUE slippery platforms
 for i in range(2):
-    p = Platform(random.randint(0, SCREEN_WIDTH - 150), random.randint(0, SCREEN_HEIGHT - 20), "slide")
-    platforms.add(p)
-    all_sprites.add(p)
+    sld_platform = Platform(random.randint(0, SCREEN_WIDTH - 150), random.randint(0, SCREEN_HEIGHT - 20), "slide")
+    platforms.add(sld_platform)
+    all_sprites.add(sld_platform)
 
-# Генериране на телепорт платформи
+# Generating the PINK teleport platforms
 for i in range(2):
-    p = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "teleport")
-    platforms.add(p)
-    all_sprites.add(p)
+    tp_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "teleport")
+    platforms.add(tp_platform)
+    all_sprites.add(tp_platform)
 
-# Основен цикъл на играта
 running = True
 clock = pygame.time.Clock()
 
@@ -55,6 +53,7 @@ while running:
             running = False
 
     player.update()
+    player.kill_player()
 
     for platform in platforms:
         if player.rect.colliderect(platform.rect) and player.velocity_y > 0:

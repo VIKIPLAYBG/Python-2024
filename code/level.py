@@ -1,6 +1,6 @@
 from settings import *
 from sprites import Sprite, MovingSprite
-##from player import Player
+from player import Player
 
 
 class Level:
@@ -15,7 +15,7 @@ class Level:
         # objects
         for obj in tmx_map.get_layer_by_name('Objects'):
             if obj.name == 'player':
-                ##Player((obj.x, obj.y), self.all_sprites, self.collision_sprites)
+                Player((obj.x, obj.y), self.all_sprites, self.collision_sprites)
 
         # Moving objects
             for obj in tmx_map.get_layer_by_name('Moving Objects'):
