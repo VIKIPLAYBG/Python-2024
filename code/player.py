@@ -35,6 +35,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocity_y
         self.on_ground = False
 
+
+
     def kill_player(self):
         if self.rect.y >= SCREEN_HEIGHT:
             pygame.quit()
