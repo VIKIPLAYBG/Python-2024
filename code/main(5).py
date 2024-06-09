@@ -2,8 +2,8 @@ import pygame
 import random
 import sys
 from constants import *
-from player import Player 
-from platforms import Platform 
+from player import Player
+from platforms import Platform
 from enemy import Enemy
 
 pygame.init()
@@ -24,10 +24,12 @@ platforms.add(str_platform)
 all_sprites.add(str_platform)
 
 # Generating the GREEN regular platforms
+platform_positions = []
 for i in range(5):
     reg_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "normal")
     platforms.add(reg_platform)
     all_sprites.add(reg_platform)
+    platform_positions.append((reg_platform.rect.x, reg_platform.rect.y))
 
 enemy_spawn_time = 2000  # The amount of milliseconds that take for an enemy to spawn
 last_enemy_spawn = pygame.time.get_ticks()  # The last time an enemy can spawn
@@ -43,7 +45,9 @@ while running:
     # Every {enemy_spawn_time} milliseconds, an enemy spawns
     current_time = pygame.time.get_ticks()
     if current_time - last_enemy_spawn > enemy_spawn_time:
-        enemy = Enemy(random.randint(0, SCREEN_WIDTH - 40), random.randint(0, SCREEN_HEIGHT - 40))
+        # Choose a random platform to spawn the enemy on
+        platform_pos = random.choice(platform_positions)
+        enemy = Enemy(platform_pos[0] + random.randint(0, 100 - 40), platform_pos[1] - 40)  # Adjust the position
         enemies.add(enemy)
         all_sprites.add(enemy)
         last_enemy_spawn = current_time
@@ -81,3 +85,4 @@ while running:
 
 pygame.quit()
 sys.exit()
+
