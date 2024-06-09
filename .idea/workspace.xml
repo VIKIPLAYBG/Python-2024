@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4daa593a-c907-4341-af90-878e9518fa38" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Python-2024.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python-2024.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/main (3).py" beforeDir="false" afterPath="$PROJECT_DIR$/code/main (3).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/obstacles.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/obstacles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/platforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/platforms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/background/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/maps/background/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/sprites.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/sprites.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +45,9 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Python.enemy.executor": "Run",
     "Python.level.executor": "Run",
+    "Python.main (3).executor": "Run",
     "Python.main.executor": "Run",
+    "Python.platforms.executor": "Run",
     "Python.player.executor": "Run",
     "Python.settings.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",

@@ -27,26 +27,8 @@ for i in range(5):
     platforms.add(reg_platform)
     all_sprites.add(reg_platform)
 
-# Generating the YELLOW spring platforms
-for i in range(2):
-    spr_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "spring")
-    platforms.add(spr_platform)
-    all_sprites.add(spr_platform)
-
-# Generating the BLUE slippery platforms
-for i in range(2):
-    sld_platform = Platform(random.randint(0, SCREEN_WIDTH - 150), random.randint(0, SCREEN_HEIGHT - 20), "slide")
-    platforms.add(sld_platform)
-    all_sprites.add(sld_platform)
-
-# Generating the PINK teleport platforms
-for i in range(2):
-    tp_platform = Platform(random.randint(0, SCREEN_WIDTH - 100), random.randint(0, SCREEN_HEIGHT - 20), "teleport")
-    platforms.add(tp_platform)
-    all_sprites.add(tp_platform)
-
-enemy_spawn_time = 2000  # Време за спам на врагове (в милисекунди)
-last_enemy_spawn = pygame.time.get_ticks()  # Последно време на спам на враг
+enemy_spawn_time = 2000  # The amount of milliseconds that take for an enemy to spawn
+last_enemy_spawn = pygame.time.get_ticks()  # The last time an enemy can spawn
 
 running = True
 clock = pygame.time.Clock()
@@ -56,7 +38,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Спам на врагове на всеки enemy_spawn_time милисекунди
+    # Every {enemy_spawn_time} milliseconds, an enemy spawns
     current_time = pygame.time.get_ticks()
     if current_time - last_enemy_spawn > enemy_spawn_time:
         enemy = Enemy(random.randint(0, SCREEN_WIDTH - 40), random.randint(0, SCREEN_HEIGHT - 40))
@@ -67,22 +49,22 @@ while running:
     player.update()
     player.kill_player()
 
-    # Проверка за колизия между играча и платформите
+    # Player and Platforms collision check
     for platform in platforms:
         if player.rect.colliderect(platform.rect) and player.velocity_y > 0:
             player.rect.bottom = platform.rect.top
             player.velocity_y = 0
             player.on_ground = True
 
-    # Проверка за колизия между играча и враговете
+    # Player and Enemies collision check
     for enemy in enemies:
         if player.rect.colliderect(enemy.rect):
-            # Ако играчът пада върху врага, врагът умира
+            # If the player jumps on the enemy, the enemy dies
             if player.velocity_y > 0:
                 enemy.kill()
-                player.velocity_y = -15  # Играчът отскача
+                player.velocity_y = -15  # The player jumps off the enemy
             else:
-                running = False  # Играта приключва, ако врагът докосне играча
+                running = False  # The player dies if they touch an enemy in any other way
 
     all_sprites.update()
 
@@ -90,7 +72,7 @@ while running:
     screen.blit(background, (0, 0))
 
     all_sprites.draw(screen)
-    screen.blit(player.image, player.rect.topleft)
+    screen.blit(player.surf, player.rect.topleft)
 
     pygame.display.flip()
     clock.tick(60)
