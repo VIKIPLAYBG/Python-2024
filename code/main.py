@@ -23,8 +23,8 @@ all_sprites.add(str_platform)
 
 reg_platforms = {
     Platform((SCREEN_WIDTH - 600), (SCREEN_HEIGHT - 500), "normal"),
-    Platform((SCREEN_WIDTH - 1400), (SCREEN_HEIGHT - 700), "normal"),
-    Platform((SCREEN_WIDTH - 1700), (SCREEN_HEIGHT - 900), "normal"),
+    Platform((SCREEN_WIDTH - 1400), (SCREEN_HEIGHT - 750), "normal"),
+    Platform((SCREEN_WIDTH - 1800), (SCREEN_HEIGHT - 900), "normal"),
     Platform((SCREEN_WIDTH - 1600), (SCREEN_HEIGHT - 400), "normal"),
     Platform((SCREEN_WIDTH - 900), (SCREEN_HEIGHT - 300), "normal")
 }
@@ -82,10 +82,10 @@ while running:
         background = pygame.image.load('../maps/background/background.png')
         screen.blit(background, (0, 0))
 
-        text_font = pygame.font.Font('../fonts/edosz.ttf', 50)
-        score_text_surf = text_font.render(f'Score: {points}', False, 'white')
+        text_font = pygame.font.Font('../fonts/edosz.ttf', 70)
+        score_text_surf = text_font.render(f'Score: {points}', False, 'black')
         score_text_rect = score_text_surf.get_rect(center=(
-            SCREEN_WIDTH // 2 - SCREEN_WIDTH // 4, SCREEN_HEIGHT // 2))
+            SCREEN_WIDTH // 7, SCREEN_HEIGHT // 20))
         screen.blit(score_text_surf, score_text_rect)
 
         all_sprites.draw(screen)

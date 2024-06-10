@@ -4,6 +4,7 @@ from screens import death_screen
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
