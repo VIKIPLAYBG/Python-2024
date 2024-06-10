@@ -49,7 +49,7 @@ while running:
     # 1 - gameplay
 
     if game_active == 1:
-        
+
         # Every {enemy_spawn_time} milliseconds, an enemy spawns
         current_time = pygame.time.get_ticks()
         if current_time - last_enemy_spawn > enemy_spawn_time:
