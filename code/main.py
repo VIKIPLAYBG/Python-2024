@@ -2,15 +2,17 @@ import pygame
 import random
 import sys
 from constants import *
-from player import Player
-from platforms import Platform
+from player import Player 
+from platforms import Platform 
 from enemy import Enemy
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("2D Platformer Game")
 
+
 player = Player()
+
 
 all_sprites = pygame.sprite.Group()
 platforms = pygame.sprite.Group()
