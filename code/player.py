@@ -1,6 +1,8 @@
 import pygame
 from constants import *
+from screens import death_screen
 
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -43,4 +45,5 @@ class Player(pygame.sprite.Sprite):
 
     def kill_player(self):
         if self.rect.y >= SCREEN_HEIGHT:
-            pygame.quit()
+            ret_3 = death_screen(screen, 0)
+            return ret_3
