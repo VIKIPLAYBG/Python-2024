@@ -1,8 +1,10 @@
 import pygame
 from constants import *
 from screens import death_screen
+from animations import *
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -18,8 +20,11 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.velocity_y += 1
         keys = pygame.key.get_pressed()
+        is_moving = False
+
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.look = 1
+            is_moving = True
             if keys[pygame.K_LSHIFT]:
                 self.rect.x -= DASH_SPEED
             else:
@@ -27,6 +32,7 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.look = 2
+            is_moving = True
             if keys[pygame.K_LSHIFT]:
                 self.rect.x += DASH_SPEED
             else:
@@ -38,10 +44,16 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.velocity_y = -15
 
-        if self.look == 1:
-            self.surf = pygame.transform.flip(self.surf, True, False)
         self.rect.y += self.velocity_y
         self.on_ground = False
+
+        # Update the player's sprite with the current animation frame only if moving
+        if is_moving:
+            self.surf = player_animations()
+
+        else:
+            self.surf = pygame.transform.scale(
+                pygame.image.load('../player/player_idle_1.png'), (PLAYER_WIDTH, PLAYER_HEIGHT))
 
     def kill_player(self):
         if self.rect.y >= SCREEN_HEIGHT:

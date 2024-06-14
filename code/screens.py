@@ -1,8 +1,10 @@
-import pygame, sys
+import pygame
+import sys
 from constants import *
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 background = pygame.image.load('../maps/background/background.png')
+
 
 def start_screen(screen):
     start_surf = pygame.Surface((200, 65))
@@ -42,6 +44,7 @@ def start_screen(screen):
                 elif quit_rect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
+
 
 def death_screen(screen, score):
     text_font = pygame.font.Font('../fonts/edosz.ttf', 50)

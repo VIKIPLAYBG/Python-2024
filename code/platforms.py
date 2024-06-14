@@ -3,6 +3,7 @@ from constants import *
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, platform_type):
         super().__init__()
@@ -13,4 +14,3 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
         self.rect.x = x
         self.rect.y = y
-

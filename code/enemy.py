@@ -1,5 +1,6 @@
 import pygame
 
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, platform):
         super().__init__()
