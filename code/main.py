@@ -23,13 +23,18 @@ all_sprites.add(str_platform)
 
 reg_platforms = {
     Platform((SCREEN_WIDTH - 600), (SCREEN_HEIGHT - 500), "normal"),
-    Platform((SCREEN_WIDTH - 1400), (SCREEN_HEIGHT - 750), "normal"),
-    Platform((SCREEN_WIDTH - 1800), (SCREEN_HEIGHT - 900), "normal"),
+    Platform((SCREEN_WIDTH - 1400), (SCREEN_HEIGHT - 700), "normal"),
+    Platform((SCREEN_WIDTH - 1700), (SCREEN_HEIGHT - 900), "normal"),
     Platform((SCREEN_WIDTH - 1600), (SCREEN_HEIGHT - 400), "normal"),
     Platform((SCREEN_WIDTH - 900), (SCREEN_HEIGHT - 300), "normal")
 }
 platforms.add(reg_platforms)
 all_sprites.add(reg_platforms)
+
+# create a dictionary to store sprite groups for each platform
+platform_enemies = {}
+for platform in platforms:
+    platform_enemies[platform] = pygame.sprite.Group()
 
 enemy_spawn_time = 2000
 last_enemy_spawn = pygame.time.get_ticks()
@@ -53,9 +58,11 @@ while running:
         # Every {enemy_spawn_time} milliseconds, an enemy spawns
         current_time = pygame.time.get_ticks()
         if current_time - last_enemy_spawn > enemy_spawn_time:
-            enemy = Enemy(random.randint(0, SCREEN_WIDTH - 40), random.randint(0, SCREEN_HEIGHT - 40))
+            platform = random.choice(list(reg_platforms))
+            enemy = Enemy(platform)
             enemies.add(enemy)
             all_sprites.add(enemy)
+            platform_enemies[platform].add(enemy)  # add enemy to sprite group for its platform
             last_enemy_spawn = current_time
 
         player.update()
@@ -82,13 +89,17 @@ while running:
         background = pygame.image.load('../maps/background/background.png')
         screen.blit(background, (0, 0))
 
-        text_font = pygame.font.Font('../fonts/edosz.ttf', 70)
-        score_text_surf = text_font.render(f'Score: {points}', False, 'black')
+        text_font = pygame.font.Font('../fonts/edosz.ttf', 50)
+        score_text_surf = text_font.render(f'Score: {points}', False, 'white')
         score_text_rect = score_text_surf.get_rect(center=(
-            SCREEN_WIDTH // 7, SCREEN_HEIGHT // 20))
+            SCREEN_WIDTH // 2 - SCREEN_WIDTH // 4, SCREEN_HEIGHT // 2))
         screen.blit(score_text_surf, score_text_rect)
 
         all_sprites.draw(screen)
+
+        for sprite_group in platform_enemies.values():
+            sprite_group.draw(screen)
+
         screen.blit(player.surf, player.rect.topleft)
 
         pygame.display.flip()
@@ -106,9 +117,13 @@ while running:
         all_sprites.add(str_platform)
         platforms.add(reg_platforms)
         all_sprites.add(reg_platforms)
+        platform_enemies = {}
+        for platform in platforms:
+            platform_enemies[platform] = pygame.sprite.Group()  # reinitialize the platform_enemies dictionary
         points = 0
         last_enemy_spawn = pygame.time.get_ticks()
         game_active = 1
 
 pygame.quit()
 sys.exit()
+
