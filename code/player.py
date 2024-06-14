@@ -4,7 +4,6 @@ from screens import death_screen
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -40,7 +39,7 @@ class Player(pygame.sprite.Sprite):
                 self.velocity_y = -15
 
         if self.look == 1:
-            pygame.transform.flip(self.surf, True, False)
+            self.surf = pygame.transform.flip(self.surf, True, False)
         self.rect.y += self.velocity_y
         self.on_ground = False
 
