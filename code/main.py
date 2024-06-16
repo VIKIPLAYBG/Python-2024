@@ -35,6 +35,7 @@ all_sprites.add(reg_platforms)
 platform_enemies = {}
 for platform in platforms:
     platform_enemies[platform] = pygame.sprite.Group()
+    platform.enemy_sprites = platform_enemies[platform]
 
 enemy_spawn_time = 2000
 last_enemy_spawn = pygame.time.get_ticks()
@@ -44,24 +45,10 @@ clock = pygame.time.Clock()
 
 game_active = 0
 points = 0
-player_look = 0
 
 while running:
     if game_active == 0:
         game_active = start_screen(screen)
-        player = Player()
-        all_sprites = pygame.sprite.Group()
-        platforms = pygame.sprite.Group()
-        enemies = pygame.sprite.Group()
-        platforms.add(str_platform)
-        all_sprites.add(str_platform)
-        platforms.add(reg_platforms)
-        all_sprites.add(reg_platforms)
-        platform_enemies = {}
-        for platform in platforms:
-            platform_enemies[platform] = pygame.sprite.Group()  # reinitialize the platform_enemies dictionary
-        points = 0
-        last_enemy_spawn = pygame.time.get_ticks()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -73,20 +60,15 @@ while running:
         current_time = pygame.time.get_ticks()
         if current_time - last_enemy_spawn > enemy_spawn_time:
             platform = random.choice(list(reg_platforms))
-            enemy = Enemy(platform)
-            enemies.add(enemy)
-            all_sprites.add(enemy)
-            platform_enemies[platform].add(enemy)  # add enemy to sprite group for its platform
+            if platform.can_spawn_enemy():
+                enemy = Enemy(platform)
+                enemies.add(enemy)
+                all_sprites.add(enemy)
+                platform_enemies[platform].add(enemy)  # add enemy to sprite group for its platform
+                enemy.platform_enemies = platform_enemies[platform]  # set platform_enemies attribute for the new enemy
             last_enemy_spawn = current_time
 
         player.update()
-        player_look = player.look
-        if player_look == 1:
-            player.surf = pygame.transform.flip(player.surf, True, False)
-            player_look = player.look
-            if player_look == 2:
-                player.surf = pygame.transform.flip(player.surf, True, False)
-
         if player.kill_player() == 3:
             game_active = 3
 
@@ -107,6 +89,9 @@ while running:
 
         all_sprites.update()
 
+        for platform in platforms:
+            platform.enemy_sprites.update()
+
         background = pygame.image.load('../maps/background/background.png')
         screen.blit(background, (0, 0))
 
@@ -118,8 +103,8 @@ while running:
 
         all_sprites.draw(screen)
 
-        for sprite_group in platform_enemies.values():
-            sprite_group.draw(screen)
+        for platform in platforms:
+            platform.enemy_sprites.draw(screen)
 
         screen.blit(player.surf, player.rect.topleft)
 
@@ -141,6 +126,7 @@ while running:
         platform_enemies = {}
         for platform in platforms:
             platform_enemies[platform] = pygame.sprite.Group()  # reinitialize the platform_enemies dictionary
+            platform.enemy_sprites = platform_enemies[platform]
         points = 0
         last_enemy_spawn = pygame.time.get_ticks()
         game_active = 1
