@@ -1,6 +1,5 @@
 import pygame
 
-
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, platform):
         super().__init__()
@@ -16,3 +15,12 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x += self.direction
         if self.rect.right >= self.platform.rect.right or self.rect.left <= self.platform.rect.left:
             self.direction *= -1
+
+        self.collide_enemies()
+
+    def collide_enemies(self):
+        # Check for collisions with other enemies in the same sprite group
+        for enemy in self.platform.enemy_sprites:
+            if self != enemy and self.rect.colliderect(enemy.rect):
+                self.direction *= -1
+                enemy.direction *= -1
