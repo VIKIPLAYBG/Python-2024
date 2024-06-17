@@ -47,7 +47,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocity_y
         self.on_ground = False
 
-        # Update the player's sprite with the current animation frame only if moving
         if is_moving:
             self.surf = player_animations()
 

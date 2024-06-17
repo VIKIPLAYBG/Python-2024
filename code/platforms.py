@@ -2,6 +2,7 @@ import pygame
 import pygame
 from constants import *
 
+
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, platform_type):
         super().__init__()
